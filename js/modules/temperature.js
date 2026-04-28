@@ -1,15 +1,18 @@
 const MIN_C = -17.8;
 const MAX_C = 100;
 
+// Mantém Celsius dentro da faixa válida para evitar Fahrenheit negativo.
 function clampCelsius(value) {
   return Math.min(MAX_C, Math.max(MIN_C, value));
 }
 
+// Converte Celsius para Fahrenheit com piso em 0°F.
 function cToF(c) {
   const fahrenheit = c * 9 / 5 + 32;
   return Math.max(0, fahrenheit).toFixed(1);
 }
 
+// Atualiza valor convertido e feedback visual de temperatura.
 function atualizarTemp(c) {
   document.getElementById('fahrenheitDisplay').textContent = cToF(c) + '°F';
   const vis = document.getElementById('tempVisual');
@@ -37,6 +40,7 @@ function atualizarTemp(c) {
   }
 }
 
+// Sincroniza valor vindo do input numérico com slider e resultado.
 export function syncFromInput() {
   const input = document.getElementById('celsius');
   const c = parseFloat(input.value);
@@ -49,6 +53,7 @@ export function syncFromInput() {
   }
 }
 
+// Sincroniza valor vindo do slider com input e resultado.
 export function syncFromSlider() {
   const slider = document.getElementById('slider');
   const c = parseFloat(slider.value);
@@ -58,6 +63,7 @@ export function syncFromSlider() {
   atualizarTemp(clamped);
 }
 
+// Expõe funções globais e inicializa o estado padrão.
 export function initTemperature() {
   window.syncFromInput = syncFromInput;
   window.syncFromSlider = syncFromSlider;

@@ -13,6 +13,7 @@ let qIdx = 0;
 let qScore = 0;
 let qRespondida = false;
 
+// Renderiza pergunta atual, opções e estado visual do progresso.
 function renderPergunta() {
   const p = perguntas[qIdx];
   document.getElementById('quiz-counter').textContent = `Pergunta ${qIdx + 1} de ${perguntas.length}`;
@@ -37,6 +38,7 @@ function renderPergunta() {
   qRespondida = false;
 }
 
+// Processa a resposta escolhida, aplica feedback e atualiza pontuação.
 function responder(idx) {
   if (qRespondida) return;
   qRespondida = true;
@@ -65,6 +67,7 @@ function responder(idx) {
   document.getElementById('btn-proxima').style.display = 'inline-block';
 }
 
+// Avança o quiz e mostra tela final quando acabar.
 export function proximaPergunta() {
   qIdx += 1;
 
@@ -88,12 +91,14 @@ export function proximaPergunta() {
   }
 }
 
+// Reinicia estado do quiz para uma nova rodada.
 export function reiniciarQuiz() {
   qIdx = 0;
   qScore = 0;
   renderPergunta();
 }
 
+// Expõe ações globais e faz o primeiro render.
 export function initQuiz() {
   window.proximaPergunta = proximaPergunta;
   window.reiniciarQuiz = reiniciarQuiz;

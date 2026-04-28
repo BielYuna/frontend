@@ -64,6 +64,7 @@ const fallbackWeather = {
   }
 };
 
+// Aplica paleta de cores da interface conforme a temperatura atual.
 function setTemperatureTheme(temp) {
   const main = document.getElementById('previsaoAtual');
   let bg;
@@ -87,6 +88,7 @@ function setTemperatureTheme(temp) {
   main.style.color = color;
 }
 
+// Converte código de clima da API em ícone visual da interface.
 function codeToEmoji(code) {
   const c = Number(code);
   if ([113].includes(c)) return '☀️';
@@ -99,6 +101,7 @@ function codeToEmoji(code) {
   return '🌤️';
 }
 
+// Traduz descrições em inglês para rótulos em português.
 function translateCondition(text) {
   const t = String(text || '').toLowerCase();
   if (t.includes('sunny') || t.includes('clear')) return 'Céu limpo';
@@ -111,6 +114,7 @@ function translateCondition(text) {
   return text || 'Condição indefinida';
 }
 
+// Define rótulos de dia para os cards de previsão.
 function dayLabel(index) {
   if (index === 0) return 'Hoje';
   if (index === 1) return 'Amanhã';
@@ -118,6 +122,7 @@ function dayLabel(index) {
   return 'Próximo';
 }
 
+// Atualiza bloco principal e cards dos próximos dias.
 function renderWeather(data) {
   document.getElementById('iconeTempo').textContent = data.icon;
   document.getElementById('temperatura').textContent = `${data.temp}°C`;
@@ -136,6 +141,7 @@ function renderWeather(data) {
   });
 }
 
+// Busca previsão atual e diária na API wttr.in (sem chave).
 async function fetchWttr(cityQuery) {
   const endpoint = `https://wttr.in/${encodeURIComponent(cityQuery)}?format=j1`;
   const response = await fetch(endpoint, { headers: { Accept: 'application/json' } });
@@ -143,6 +149,7 @@ async function fetchWttr(cityQuery) {
   return response.json();
 }
 
+// Normaliza resposta da API para o formato usado pela UI.
 function toViewModel(raw, cityName) {
   const current = raw.current_condition?.[0];
   const forecastRaw = raw.weather?.slice(0, 3) || [];
@@ -171,6 +178,7 @@ function toViewModel(raw, cityName) {
   };
 }
 
+// Recarrega previsão da cidade selecionada com fallback local em falha.
 export async function atualizarPrevisao() {
   const cityKey = document.getElementById('cidade').value;
   const city = cities[cityKey];
@@ -203,6 +211,7 @@ export async function atualizarPrevisao() {
   }
 }
 
+// Expõe atualização para o select e carrega a previsão inicial.
 export function initWeather() {
   window.atualizarPrevisao = atualizarPrevisao;
   atualizarPrevisao();

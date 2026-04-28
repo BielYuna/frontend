@@ -1,3 +1,4 @@
+// Calcula o IMC com base em peso/altura e atualiza o resultado com cor por faixa.
 export function calcularIMC() {
   const peso = parseFloat(document.getElementById('peso').value);
   const altura = parseFloat(document.getElementById('altura').value);
@@ -48,6 +49,7 @@ export function calcularIMC() {
   res.innerHTML = `IMC: <strong>${imc.toFixed(2)}</strong> — ${classe}`;
 }
 
+// Expõe a função para uso nos eventos inline do HTML.
 export function initIMC() {
   window.calcularIMC = calcularIMC;
 }

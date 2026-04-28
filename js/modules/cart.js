@@ -9,10 +9,12 @@ const produtos = [
 
 let carrinho = JSON.parse(localStorage.getItem('jsAcademyCart') || '[]');
 
+// Persiste estado do carrinho no navegador.
 function salvarCarrinho() {
   localStorage.setItem('jsAcademyCart', JSON.stringify(carrinho));
 }
 
+// Adiciona item ao carrinho (ou incrementa quantidade se já existir).
 export function adicionarAoCarrinho(id) {
   const item = carrinho.find((i) => i.id === id);
   if (item) {
@@ -25,6 +27,7 @@ export function adicionarAoCarrinho(id) {
   renderCart();
 }
 
+// Remove uma unidade do item; exclui quando a quantidade chega a zero.
 export function removerDoCarrinho(id) {
   const item = carrinho.find((i) => i.id === id);
   if (!item) return;
@@ -39,12 +42,14 @@ export function removerDoCarrinho(id) {
   renderCart();
 }
 
+// Limpa todos os itens do carrinho.
 export function limparCarrinho() {
   carrinho = [];
   salvarCarrinho();
   renderCart();
 }
 
+// Renderiza lista de produtos, itens no carrinho e total de compra.
 export function renderCart() {
   const pg = document.getElementById('produtosGrid');
   if (pg) {
@@ -89,6 +94,7 @@ export function renderCart() {
   document.getElementById('cart-count').textContent = qtd;
 }
 
+// Expõe ações globais e inicia render com dados do localStorage.
 export function initCart() {
   window.adicionarAoCarrinho = adicionarAoCarrinho;
   window.removerDoCarrinho = removerDoCarrinho;

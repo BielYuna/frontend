@@ -1,6 +1,7 @@
 let clockInterval = null;
 let formato24h = true;
 
+// Atualiza hora/data na interface respeitando o formato ativo (12h ou 24h).
 function tickClock() {
   const agora = new Date();
   let h = agora.getHours();
@@ -27,17 +28,20 @@ function tickClock() {
   document.getElementById('clock-date').textContent = `${dow}, ${dia} de ${mes} de ${ano}`;
 }
 
+// Inicia atualização contínua do relógio e evita múltiplos intervalos.
 export function startClock() {
   if (clockInterval) return;
   tickClock();
   clockInterval = setInterval(tickClock, 1000);
 }
 
+// Alterna entre formato 12h e 24h.
 export function alternarFormato() {
   formato24h = !formato24h;
   tickClock();
 }
 
+// Expõe a ação de alternar formato para o botão do HTML.
 export function initClock() {
   window.alternarFormato = alternarFormato;
 }

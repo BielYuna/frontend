@@ -1,11 +1,13 @@
 let tarefas = [];
 
+// Escapa texto para evitar injeção de HTML ao renderizar tarefas digitadas.
 function escapeHtml(str) {
   const div = document.createElement('div');
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
 }
 
+// Renderiza lista e contadores (total, pendentes e concluídas).
 function renderTarefas() {
   const ul = document.getElementById('listaTarefas');
   ul.innerHTML = '';
@@ -28,6 +30,7 @@ function renderTarefas() {
   document.getElementById('tot-done').textContent = tarefas.length - pendentes;
 }
 
+// Adiciona uma nova tarefa com id único e atualiza a lista.
 export function adicionarTarefa() {
   const input = document.getElementById('novaTarefa');
   const texto = input.value.trim();
@@ -38,17 +41,20 @@ export function adicionarTarefa() {
   renderTarefas();
 }
 
+// Alterna o estado de concluída de uma tarefa.
 export function toggleTarefa(id) {
   const tarefa = tarefas.find((t) => t.id === id);
   if (tarefa) tarefa.done = !tarefa.done;
   renderTarefas();
 }
 
+// Remove a tarefa selecionada e recalcula os contadores.
 export function removerTarefa(id) {
   tarefas = tarefas.filter((t) => t.id !== id);
   renderTarefas();
 }
 
+// Expõe as ações no escopo global para os botões com onclick do HTML.
 export function initTodo() {
   window.adicionarTarefa = adicionarTarefa;
   window.toggleTarefa = toggleTarefa;

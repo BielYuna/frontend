@@ -1,3 +1,4 @@
+// Aplica estado visual do campo e define mensagem de erro/sucesso.
 function setFieldState(inputId, errId, msg) {
   const inp = document.getElementById(inputId);
   const err = document.getElementById(errId);
@@ -15,6 +16,7 @@ function setFieldState(inputId, errId, msg) {
   return true;
 }
 
+// Valida nome completo com pelo menos duas palavras.
 export function validarNome() {
   const v = document.getElementById('f-nome').value.trim();
   if (!v) return setFieldState('f-nome', 'erroNome', 'Nome é obrigatório.');
@@ -22,6 +24,7 @@ export function validarNome() {
   return setFieldState('f-nome', 'erroNome', '');
 }
 
+// Valida e-mail com regra simples de formato.
 export function validarEmail() {
   const v = document.getElementById('f-email').value.trim();
   if (!v) return setFieldState('f-email', 'erroEmail', 'E-mail é obrigatório.');
@@ -30,6 +33,7 @@ export function validarEmail() {
   return setFieldState('f-email', 'erroEmail', '');
 }
 
+// Valida tamanho mínimo da senha e atualiza barra de força.
 export function validarSenha() {
   const v = document.getElementById('f-senha').value;
   const bar = document.getElementById('ps-bar');
@@ -50,6 +54,7 @@ export function validarSenha() {
   return setFieldState('f-senha', 'erroSenha', '');
 }
 
+// Verifica se confirmação de senha coincide com a senha principal.
 export function validarConfirma() {
   const s = document.getElementById('f-senha').value;
   const c = document.getElementById('f-confirma').value;
@@ -58,6 +63,7 @@ export function validarConfirma() {
   return setFieldState('f-confirma', 'erroConfirma', '');
 }
 
+// Bloqueia envio inválido e mostra feedback de sucesso quando válido.
 export function validarFormulario(e) {
   e.preventDefault();
   const ok = [validarNome(), validarEmail(), validarSenha(), validarConfirma()].every(Boolean);
@@ -71,6 +77,7 @@ export function validarFormulario(e) {
   }
 }
 
+// Expõe validadores para os eventos inline do formulário.
 export function initFormValidation() {
   window.validarNome = validarNome;
   window.validarEmail = validarEmail;

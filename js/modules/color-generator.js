@@ -1,3 +1,4 @@
+// Atualiza preview, valores RGB e valor HEX com base nos sliders.
 export function atualizarCor() {
   const r = parseInt(document.getElementById('sldr-r').value, 10);
   const g = parseInt(document.getElementById('sldr-g').value, 10);
@@ -13,6 +14,7 @@ export function atualizarCor() {
   document.getElementById('rgbVal').textContent = `RGB(${r}, ${g}, ${b})`;
 }
 
+// Sorteia nova cor RGB e sincroniza os controles.
 export function gerarCorAleatoria() {
   const r = Math.floor(Math.random() * 256);
   const g = Math.floor(Math.random() * 256);
@@ -25,6 +27,7 @@ export function gerarCorAleatoria() {
   atualizarCor();
 }
 
+// Copia o HEX atual para a área de transferência.
 export function copiarHex() {
   const hex = document.getElementById('hexVal').textContent;
   navigator.clipboard.writeText(hex).then(() => {
@@ -38,6 +41,7 @@ export function copiarHex() {
   });
 }
 
+// Expõe funções globais e inicia a interface com a cor atual.
 export function initColorGenerator() {
   window.atualizarCor = atualizarCor;
   window.gerarCorAleatoria = gerarCorAleatoria;
