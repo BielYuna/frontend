@@ -1,0 +1,272 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Academy – Dashboard</title>
+  <link rel="icon" type="image/png" href="itens/loupe_1313569.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ════════════════════ SIDEBAR ════════════════════ -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <h1>🎓 JS Academy</h1>
+    <span>Exercícios Práticos</span>
+  </div>
+
+  <div class="sidebar-section">Navegação</div>
+  <div class="nav-item active" data-panel="welcome" onclick="showPanel('welcome',this)">
+    <span class="ni">🏠</span><span class="nl">Início</span>
+  </div>
+
+  <div class="sidebar-section">Serviços</div>
+  <div class="nav-item" data-panel="1"  onclick="showPanel('1',this)"><span class="ni">⚖️</span><span class="nl">Calculadora de IMC</span><span class="nb">01</span></div>
+  <div class="nav-item" data-panel="2"  onclick="showPanel('2',this)"><span class="ni">✅</span><span class="nl">Lista de Tarefas</span><span class="nb">02</span></div>
+  <div class="nav-item" data-panel="3"  onclick="showPanel('3',this)"><span class="ni">🔢</span><span class="nl">Contador Interativo</span><span class="nb">03</span></div>
+  <div class="nav-item" data-panel="4"  onclick="showPanel('4',this)"><span class="ni">🌡️</span><span class="nl">Conversor de Temp.</span><span class="nb">04</span></div>
+  <div class="nav-item" data-panel="5"  onclick="showPanel('5',this)"><span class="ni">🕐</span><span class="nl">Relógio Digital</span><span class="nb">05</span></div>
+  <div class="nav-item" data-panel="6"  onclick="showPanel('6',this)"><span class="ni">❓</span><span class="nl">Quiz Interativo</span><span class="nb">06</span></div>
+  <div class="nav-item" data-panel="7"  onclick="showPanel('7',this)"><span class="ni">🎨</span><span class="nl">Gerador de Cores</span><span class="nb">07</span></div>
+  <div class="nav-item" data-panel="8"  onclick="showPanel('8',this)"><span class="ni">📋</span><span class="nl">Validação de Form.</span><span class="nb">08</span></div>
+  <div class="nav-item" data-panel="9"  onclick="showPanel('9',this)"><span class="ni">🛒</span><span class="nl">Carrinho de Compras</span><span class="nb">09</span></div>
+  <div class="nav-item" data-panel="10" onclick="showPanel('10',this)"><span class="ni">🌤️</span><span class="nl">Previsão do Tempo</span><span class="nb">10</span></div>
+</aside>
+
+<!-- ════════════════════ MAIN ════════════════════ -->
+<main class="main-content">
+  <div class="service-bg" id="service-animation-bg" aria-hidden="true">
+    <div id="service-animation" class="service-bg-animation"></div>
+  </div>
+
+  <!-- ── WELCOME ── -->
+  <div class="panel active" id="panel-welcome">
+    <div class="welcome-hero">
+      <h2>Bem-vindo ao JS Academy! 👋</h2>
+      <p>Explore os exercícios práticos de JavaScript. Selecione um serviço no menu lateral ou clique em um dos cards abaixo para começar.</p>
+    </div>
+    <div class="ex-grid" id="ex-grid"></div>
+  </div>
+
+  <!-- ── 01 IMC ── -->
+  <div class="panel" id="panel-1">
+    <h1 class="page-title">⚖️ Calculadora de IMC</h1>
+    <p class="page-sub">Calcule seu Índice de Massa Corporal (IMC)</p>
+    <div class="card">
+      <input type="number" class="fi" id="peso" placeholder="Peso (kg)" min="1" max="300">
+      <input type="number" class="fi" id="altura" placeholder="Altura (m) — ex: 1.75" step="0.01" min="0.5" max="3">
+      <button class="btn btn-p" onclick="calcularIMC()">Calcular IMC</button>
+      <div id="imc-res"></div>
+    </div>
+  </div>
+
+  <!-- ── 02 TODO ── -->
+  <div class="panel" id="panel-2">
+    <h1 class="page-title">✅ Lista de Tarefas</h1>
+    <p class="page-sub">Gerencie suas tarefas do dia</p>
+    <div class="card">
+      <div class="todo-add">
+        <input type="text" class="fi" id="novaTarefa" placeholder="Nova tarefa..." onkeydown="if(event.key==='Enter')adicionarTarefa()">
+        <button class="btn btn-p" onclick="adicionarTarefa()">Adicionar</button>
+      </div>
+      <div class="todo-stats">
+        <div class="todo-stat">Total: <span id="tot-total">0</span></div>
+        <div class="todo-stat">Pendentes: <span id="tot-pend">0</span></div>
+        <div class="todo-stat">Concluídas: <span id="tot-done">0</span></div>
+      </div>
+      <ul id="listaTarefas"></ul>
+    </div>
+  </div>
+
+  <!-- ── 03 COUNTER ── -->
+  <div class="panel" id="panel-3">
+    <h1 class="page-title">🔢 Contador Interativo</h1>
+    <p class="page-sub">Incremente, decremente e personalize o valor</p>
+    <div class="card">
+      <div class="counter-val" id="contVal">0</div>
+      <div class="counter-btns">
+        <button class="btn btn-d counter-big" onclick="decrementar()">−</button>
+        <button class="btn btn-w" onclick="resetar()">Reset</button>
+        <button class="btn btn-s counter-big" onclick="incrementar()">+</button>
+      </div>
+      <div class="counter-custom">
+        <input type="number" class="fi" id="valorPersonalizado" placeholder="Digite um valor personalizado">
+        <button class="btn btn-p" onclick="definirValor()">Definir</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 04 TEMPERATURE ── -->
+  <div class="panel" id="panel-4">
+    <h1 class="page-title">🌡️ Conversor de Temperatura</h1>
+    <p class="page-sub">Converta entre Celsius e Fahrenheit</p>
+    <div class="card">
+      <div class="temp-row">
+        <input type="number" class="fi" id="celsius" placeholder="Celsius" min="-17.8" max="100" step="0.1" oninput="syncFromInput()" style="margin:0">
+        <span class="temp-eq">°C =</span>
+        <span class="temp-res" id="fahrenheitDisplay">–</span>
+        <span style="font-size:18px;font-weight:700;color:#94a3b8">°F</span>
+      </div>
+      <input type="range" class="tslider" id="slider" min="-17.8" max="100" step="0.1" value="0" oninput="syncFromSlider()">
+      <div class="temp-visual" id="tempVisual">Ajuste a temperatura acima</div>
+    </div>
+  </div>
+
+  <!-- ── 05 CLOCK ── -->
+  <div class="panel" id="panel-5">
+    <h1 class="page-title">🕐 Relógio Digital</h1>
+    <p class="page-sub">Relógio em tempo real com alternância de formato</p>
+    <div class="card">
+      <div class="clock-face">
+        <div><span id="clock-time">00:00:00</span><span id="clock-period"></span></div>
+        <div id="clock-date">--/--/----</div>
+      </div>
+      <div class="clock-btn-row">
+        <button class="btn btn-p" onclick="alternarFormato()">Alternar 12h / 24h</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 06 QUIZ ── -->
+  <div class="panel" id="panel-6">
+    <h1 class="page-title">❓ Quiz Interativo</h1>
+    <p class="page-sub">Teste seus conhecimentos em JavaScript</p>
+    <div class="card" id="quiz-card">
+      <div class="quiz-hdr">
+        <span class="quiz-counter" id="quiz-counter">Pergunta 1 de 8</span>
+        <span class="quiz-score-lbl">Pontos: <span id="pontuacao">0</span></span>
+      </div>
+      <div class="quiz-prog"><div class="quiz-prog-fill" id="quiz-prog-fill" style="width:0%"></div></div>
+      <div class="quiz-q" id="pergunta">Carregando...</div>
+      <div class="quiz-opts" id="opcoes"></div>
+      <div class="quiz-feedback" id="quiz-feedback"></div>
+      <button class="btn btn-p" id="btn-proxima" onclick="proximaPergunta()" style="display:none">Próxima →</button>
+      <div class="quiz-end" id="quiz-end" style="display:none">
+        <div class="q-icon" id="q-icon">🏆</div>
+        <h3 id="q-end-title">Quiz concluído!</h3>
+        <p id="q-end-sub">Você acertou X de 8 perguntas.</p>
+        <button class="btn btn-p" onclick="reiniciarQuiz()">Jogar novamente</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 07 COLOR GENERATOR ── -->
+  <div class="panel" id="panel-7">
+    <h1 class="page-title">🎨 Gerador de Cores</h1>
+    <p class="page-sub">Misture cores RGB e gere paletas aleatórias</p>
+    <div class="card">
+      <div id="colorBox"></div>
+      <div class="color-vals">
+        <div class="color-hex-v" id="hexVal">#000000</div>
+        <div class="color-rgb-v" id="rgbVal">RGB(0, 0, 0)</div>
+      </div>
+      <div class="sldr-row">
+        <label style="color:#ef4444">R</label>
+        <input type="range" id="sldr-r" min="0" max="255" value="0" oninput="atualizarCor()">
+        <span id="vr">0</span>
+      </div>
+      <div class="sldr-row">
+        <label style="color:#22c55e">G</label>
+        <input type="range" id="sldr-g" min="0" max="255" value="0" oninput="atualizarCor()">
+        <span id="vg">0</span>
+      </div>
+      <div class="sldr-row">
+        <label style="color:#3b82f6">B</label>
+        <input type="range" id="sldr-b" min="0" max="255" value="0" oninput="atualizarCor()">
+        <span id="vb">0</span>
+      </div>
+      <div class="color-acts">
+        <button class="btn btn-p" onclick="gerarCorAleatoria()">🎲 Cor Aleatória</button>
+        <button class="btn btn-g" onclick="copiarHex()">📋 Copiar HEX</button>
+      </div>
+      <div class="copied" id="copied-msg"></div>
+    </div>
+  </div>
+
+  <!-- ── 08 FORM VALIDATION ── -->
+  <div class="panel" id="panel-8">
+    <h1 class="page-title">📋 Validação de Formulário</h1>
+    <p class="page-sub">Cadastro com validação em tempo real</p>
+    <div class="card">
+      <form onsubmit="validarFormulario(event)" novalidate>
+        <div class="fgroup">
+          <label>Nome completo</label>
+          <input type="text" class="fi" id="f-nome" placeholder="Ex: João Silva" oninput="validarNome()">
+          <span class="ferr" id="erroNome"></span>
+        </div>
+        <div class="fgroup">
+          <label>E-mail</label>
+          <input type="email" class="fi" id="f-email" placeholder="Ex: joao@email.com" oninput="validarEmail()">
+          <span class="ferr" id="erroEmail"></span>
+        </div>
+        <div class="fgroup">
+          <label>Senha</label>
+          <input type="password" class="fi" id="f-senha" placeholder="Mínimo 6 caracteres" oninput="validarSenha()">
+          <span class="ferr" id="erroSenha"></span>
+          <div class="ps-wrap"><div class="ps-bar" id="ps-bar"></div></div>
+        </div>
+        <div class="fgroup">
+          <label>Confirmar senha</label>
+          <input type="password" class="fi" id="f-confirma" placeholder="Repita a senha" oninput="validarConfirma()">
+          <span class="ferr" id="erroConfirma"></span>
+        </div>
+        <button type="submit" class="btn btn-p" style="width:100%">Cadastrar</button>
+        <div class="form-success" id="form-success">✅ Cadastro realizado com sucesso!</div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ── 09 CART ── -->
+  <div class="panel" id="panel-9">
+    <h1 class="page-title">🛒 Carrinho de Compras</h1>
+    <p class="page-sub">Simule compras e gerencie seu carrinho</p>
+    <div class="shop-layout">
+      <div>
+        <h3 style="font-size:15px;font-weight:700;color:#1e293b;margin-bottom:12px">Produtos disponíveis</h3>
+        <div class="prods-grid" id="produtosGrid"></div>
+      </div>
+      <div class="cart-box">
+        <h3>Carrinho <span class="cart-count" id="cart-count">0</span></h3>
+        <ul id="itensCarrinho"></ul>
+        <div class="cart-empty" id="cart-empty">Nenhum item adicionado</div>
+        <div class="cart-total-row">
+          <span>Total</span>
+          <span>R$ <span id="total">0,00</span></span>
+        </div>
+        <button class="btn btn-d cart-clear" onclick="limparCarrinho()" style="margin-top:10px;width:100%">Limpar carrinho</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 10 WEATHER ── -->
+  <div class="panel" id="panel-10">
+    <h1 class="page-title">🌤️ Previsão do Tempo</h1>
+    <p class="page-sub">Dados simulados para cidades brasileiras</p>
+    <div class="card">
+      <select class="wsel" id="cidade" onchange="atualizarPrevisao()">
+        <option value="sao-paulo">São Paulo</option>
+        <option value="rio">Rio de Janeiro</option>
+        <option value="bh">Belo Horizonte</option>
+        <option value="fortaleza">Fortaleza</option>
+        <option value="porto-alegre">Porto Alegre</option>
+      </select>
+      <div class="weather-main" id="previsaoAtual">
+        <div class="w-icon" id="iconeTempo">☁️</div>
+        <div class="w-temp" id="temperatura">22°C</div>
+        <div class="w-cond" id="condicao">Nublado</div>
+        <div class="w-city" id="w-city-name">São Paulo, SP</div>
+      </div>
+      <div class="forecast-row" id="previsaoProximosDias"></div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ════════════════════ SCRIPTS ════════════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
+
+

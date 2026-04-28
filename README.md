@@ -1,2 +1,2 @@
 # frontend
-Desenvolvimento de um site com 9 opções de serviços/Exerrcicios!
+Desenvolvimento de um site com 9 opções de serviços/Exercicios!
